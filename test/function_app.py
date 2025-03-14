@@ -60,7 +60,7 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 	start = time.time()
 	name = req.params.get('name')
 	req_body = req.get_json()
-	print("req_body:", req_body)
+	logging.info("req_body", req_body)
 	
 	q = req_body["query"]
 	# qfile_name = file_name + ".query"
@@ -69,6 +69,7 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 
 	m = query.split("-")
 	obj_name = obj_prefix + '/' + m[0]
+	logging.info("obj_name", obj_name)
 	data_size = int(m[1])
 	ndims = int(m[2])
 	q = {"ndims": ndims, "data_size": data_size}
@@ -80,7 +81,7 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 	q["shape"] = shape
 	q["ranges"] = ranges
 	process_meta = time.time()
-	logging.info("obj_name", obj_name)
+	
 	blob_service_client = BlobServiceClient.from_connection_string(os.environ['AZURECONNECTIONSTRING'])
 	container_client = blob_service_client.get_container_client(os.environ['CONTAINERNAME'])
 	blob_client = container_client.get_blob_client(obj_name)
