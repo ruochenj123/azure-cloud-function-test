@@ -80,7 +80,7 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 	q["shape"] = shape
 	q["ranges"] = ranges
 	process_meta = time.time()
-
+	logging.info("obj_name", obj_name)
 	blob_service_client = BlobServiceClient.from_connection_string(os.environ['AZURECONNECTIONSTRING'])
 	container_client = blob_service_client.get_container_client(os.environ['CONTAINERNAME'])
 	blob_client = container_client.get_blob_client(obj_name)
@@ -89,8 +89,6 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 	after_download = time.time()
 	processed = hyperslab_read(data, q)
 	after_process = time.time()
-	print("processed: ", processed)
-	print("processed size:", len(processed))
 	logging.info("process meta time: %f", process_meta - start)
 	logging.info("download time: %f", after_download - process_meta)
 	logging.info("process time: %f", after_process - after_download)
