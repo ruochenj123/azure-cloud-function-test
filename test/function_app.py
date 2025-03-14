@@ -60,7 +60,7 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 	start = time.time()
 	name = req.params.get('name')
 	req_body = req.get_json()
-	# print("req_body:", req_body)
+	print("req_body:", req_body)
 	
 	q = req_body["query"]
 	# qfile_name = file_name + ".query"
@@ -89,8 +89,8 @@ def test(req: func.HttpRequest) -> func.HttpResponse:
 	after_download = time.time()
 	processed = hyperslab_read(data, q)
 	after_process = time.time()
-	# print("processed: ", processed)
-	# print("processed size:", len(processed))
+	print("processed: ", processed)
+	print("processed size:", len(processed))
 	logging.info("process meta time: %f", process_meta - start)
 	logging.info("download time: %f", after_download - process_meta)
 	logging.info("process time: %f", after_process - after_download)
