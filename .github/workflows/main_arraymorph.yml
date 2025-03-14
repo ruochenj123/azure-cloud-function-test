@@ -70,8 +70,8 @@ jobs:
         with:
           name: python-app
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip     
+      # - name: Unzip artifact for deployment
+      #   run: unzip release.zip     
         
       - name: Login to Azure
         uses: azure/login@v2
@@ -85,6 +85,6 @@ jobs:
           az functionapp deployment source config-zip \
             --resource-group arraymorph \
             --name arraymorph \
-            --src functionapp.zip \
+            --src release.zip \
             --build-remote true        
           
